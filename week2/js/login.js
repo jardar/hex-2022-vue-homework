@@ -1,11 +1,13 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-const apiBase = "https://vue3-course-api.hexschool.io";
-const epLogin = "/v2/admin/signin";
+import hex from "./hex-api.js";
+
 createApp({
   data() {
     return {
-      email: "jardar.tsai@gmail.com",
-      pass: "jEifD7NF",
+      //   email: "jardar.tsai@gmail.com",
+      //   pass: "jEifD7NF",
+      email: "",
+      pass: "",
     };
   },
   methods: {
@@ -14,7 +16,7 @@ createApp({
         alert("請輸入帳密");
       }
       axios
-        .post(`${apiBase}${epLogin}`, {
+        .post(`${hex.epLogin}`, {
           username: this.email,
           password: this.pass,
         })

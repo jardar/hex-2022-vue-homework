@@ -1,7 +1,5 @@
 import { createApp } from "https://unpkg.com/vue@3/dist/vue.esm-browser.js";
-const apiBase = "https://vue3-course-api.hexschool.io";
-const epUserCheck = "/v2/api/user/check";
-const epAdmAllProducts = "/v2/api/jardar/admin/products/all";
+import hex from "./hex-api.js";
 
 createApp({
   data() {
@@ -17,7 +15,7 @@ createApp({
     },
     doGetAdminAllProducts() {
       axios
-        .get(`${apiBase}${epAdmAllProducts}`)
+        .get(`${hex.epAdmAllProducts}`)
         .then((res) => {
           console.log(res.data);
           const products = res.data.products;
@@ -30,7 +28,7 @@ createApp({
     },
     doCheckUser() {
       axios
-        .post(`${apiBase}${epUserCheck}`)
+        .post(`${hex.epUserCheck}`)
         .then((res) => {
           console.log(res.data);
           this.doGetAdminAllProducts();
