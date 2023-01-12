@@ -46,7 +46,7 @@ createApp({
       editModal.show();
     },
     handleEditOrCreate() {
-      console.log(this.selectedItem);
+      // console.log(this.selectedItem);
       if (this.selectedItem?.id) {
         axios
           .put(`${hex.epAdmUpdateProduct}/${this.selectedItem.id}`, {
@@ -57,7 +57,7 @@ createApp({
             this.doGetAdminAllProducts();
           })
           .catch((err) => {
-            alert(`失敗:${err.response.data.message}`);
+            alert(`失敗:${err.response.data.message || "error"}`);
           })
           .finally(() => {
             this.resetSelected();
@@ -73,7 +73,7 @@ createApp({
             this.doGetAdminAllProducts();
           })
           .catch((err) => {
-            alert(`失敗:${err.response.data.message}`);
+            alert(`失敗:${err.response.data.message || "error"}`);
           })
           .finally(() => {
             this.resetSelected();
@@ -82,7 +82,7 @@ createApp({
       }
     },
     handleDelete() {
-      console.log(this.selectedItem);
+      // console.log(this.selectedItem);
       axios
         .delete(`${hex.epAdmDeleteProducts}/${this.selectedItem.id}`)
         .then((res) => {
@@ -90,7 +90,7 @@ createApp({
           this.doGetAdminAllProducts();
         })
         .catch((err) => {
-          alert(`失敗:${err.response.data.message}`);
+          alert(`失敗:${err.response.data.message || "error"}`);
         })
         .finally(() => {
           this.resetSelected();
@@ -101,24 +101,24 @@ createApp({
       axios
         .get(`${hex.epAdmAllProducts}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           const products = res.data.products;
           this.items = products ? Object.values(products) : [];
         })
         .catch((err) => {
-          console.log(err);
-          alert(err.response.data.message);
+          // console.log(err);
+          alert(err.response.data.message || "error");
         });
     },
     doCheckUser() {
       axios
         .post(`${hex.epUserCheck}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.doGetAdminAllProducts();
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          alert(err.response.data.message || "error");
           window.location.href = "login.html";
         });
     },

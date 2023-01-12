@@ -21,14 +21,14 @@ createApp({
           password: this.pass,
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           document.cookie = `myToken=${res.data.token}; expires=${new Date(
             res.data.expires
           )};`;
           window.location.href = "adm-products.html";
         })
         .catch((err) => {
-          alert(err.response.data.message);
+          alert(err.response.data.message || "error");
         });
     },
   },
