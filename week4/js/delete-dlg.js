@@ -7,11 +7,11 @@ export default {
     deleteModal = new bootstrap.Modal(this.$refs.delProductModal, {
       keyboard: false,
     });
-    console.log(deleteModal);
+    // console.log(deleteModal);
   },
   watch: {
     show(newVal, oldVal) {
-      console.log(oldVal, newVal);
+      // console.log(oldVal, newVal);
       if (!oldVal && newVal) {
         deleteModal.show();
       } else {
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     handleAction(doOrNot = false) {
-      console.log("delete", doOrNot);
+      // console.log("delete", doOrNot);
       this.$emit("change", doOrNot);
     },
   },

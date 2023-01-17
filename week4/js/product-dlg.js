@@ -8,7 +8,7 @@ export default {
   },
   watch: {
     item() {
-      console.log(this.item);
+      // console.log(this.item);
       this.selectedItem = { ...this.item };
     },
   },

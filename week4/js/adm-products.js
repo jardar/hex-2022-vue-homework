@@ -23,24 +23,24 @@ const app = createApp({
       };
     },
     showCreateModal() {
-      // console.log(item);
-      console.log(editModal);
+      // // console.log(item);
+      // console.log(editModal);
       this.resetSelected();
       editModal.show();
     },
     showDeleteModal(item) {
-      // console.log(item);
+      // // console.log(item);
       this.selectedItem = { ...item };
       // deleteModal.show();
       this.showDelDlg = true;
     },
     showUpdateModal(item) {
-      // console.log(item);
+      // // console.log(item);
       this.selectedItem = { ...item };
       editModal.show();
     },
     handleEditOrCreate({ isNew, data }) {
-      console.log(isNew, data);
+      // console.log(isNew, data);
       if (!isNew) {
         axios
           .put(`${hex.epAdmUpdateProduct}/${this.selectedItem.id}`, {
@@ -78,7 +78,7 @@ const app = createApp({
       }
     },
     handleDelete(doOrNot = false) {
-      // console.log(this.selectedItem);
+      // // console.log(this.selectedItem);
       this.showDelDlg = false;
       if (doOrNot) {
         axios
@@ -97,7 +97,7 @@ const app = createApp({
       }
     },
     handlePageChange(pageIdx) {
-      console.log(pageIdx);
+      // console.log(pageIdx);
       if (this.page.current_page === pageIdx) {
         return;
       }
@@ -107,12 +107,12 @@ const app = createApp({
       axios
         .get(`${hex.epAdmAllProducts}`)
         .then((res) => {
-          // console.log(res.data);
+          // // console.log(res.data);
           const products = res.data.products;
           this.items = products ? Object.values(products) : [];
         })
         .catch((err) => {
-          // console.log(err);
+          // // console.log(err);
           alert(err.response.data.message || "error");
         });
     },
@@ -120,13 +120,13 @@ const app = createApp({
       axios
         .get(`${hex.epAdmGetProductsByCatPage}?page=${pageNum}`)
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           this.page = res.data.pagination;
           const products = res.data.products;
           this.items = products ? Object.values(products) : [];
         })
         .catch((err) => {
-          // console.log(err);
+          // // console.log(err);
           alert(err.response.data.message || "error");
         });
     },
@@ -134,7 +134,7 @@ const app = createApp({
       axios
         .post(`${hex.epUserCheck}`)
         .then((res) => {
-          // console.log(res.data);
+          // // console.log(res.data);
           // this.doGetAdminAllProducts();
           this.doGetAdminProductsByPage();
         })

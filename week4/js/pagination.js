@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     handleChange(pageIdx) {
-      console.log(pageIdx);
+      // console.log(pageIdx);
       this.$emit("change", pageIdx);
     },
   },
