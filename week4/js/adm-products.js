@@ -20,6 +20,7 @@ const app = createApp({
     resetSelected() {
       this.selectedItem = {
         imagesUrl: [],
+        rate: "",
       };
     },
     showCreateModal() {
@@ -130,6 +131,7 @@ const app = createApp({
           alert(err.response.data.message || "error");
         });
     },
+
     doCheckUser() {
       axios
         .post(`${hex.epUserCheck}`)

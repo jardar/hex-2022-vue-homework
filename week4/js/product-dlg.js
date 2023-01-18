@@ -1,9 +1,11 @@
+import hex from "./hex-api.js";
 export default {
   props: ["item"],
   emits: ["update"],
   data() {
     return {
       selectedItem: {},
+      // targetFile: "", // for clear input file
     };
   },
   watch: {
@@ -18,6 +20,36 @@ export default {
         isNew: !this.selectedItem.id,
         data: this.selectedItem,
       });
+    },
+
+    handleFileUpload(e, isMainImage = false, idx = 0) {
+      // console.log(e.target.files, isMainImage);
+      if (e.target?.files && e.target.files.length > 0) {
+        // console.log(e.target.files[0]);
+        const file = e.target.files[0];
+        const formData = new FormData();
+        // 加入相應的欄位.
+        // <input type="file" name="file-to-upload">
+        formData.append("file-to-upload", file);
+        // call api
+        axios
+          .post(`${hex.epUploadFile}`, formData)
+          .then((res) => {
+            // console.log(res.data);
+            if (isMainImage) {
+              this.selectedItem.imageUrl = res.data.imageUrl;
+            } else {
+              this.selectedItem.imagesUrl[idx] = res.data.imageUrl;
+            }
+          })
+          .catch((err) => {
+            // // console.log(err);
+            alert(err.response.data.message || "error");
+          })
+          .finally(() => {
+            e.target.value = "";
+          });
+      }
     },
   },
   template: `<div class="modal-dialog modal-xl">
@@ -37,9 +69,14 @@ export default {
           <div class="col-sm-4">
             <div class="mb-2">
               <h3>主要圖片</h3>
-              <div class="mb-3">
-              
+              <div class="mb-3">              
                 <label for="imageUrl" class="form-label">輸入圖片網址</label>
+                <input
+            type="file"
+            
+            placeholder="please input picture url"
+            class="form-control"
+            @change="e=>handleFileUpload(e,true)" />
                 <input
                   v-model="selectedItem.imageUrl"
                   type="text"
@@ -66,6 +103,11 @@ export default {
                   class="btn btn-outline-danger btn-sm ms-2">
                   刪除
                 </button>
+                <input
+            type="file"
+            placeholder="please input picture url"
+            class="form-control"
+            @change="e=>handleFileUpload(e,false,idx)" />
                 <input
                   v-model="selectedItem.imagesUrl[idx]"
                   type="text"
@@ -160,6 +202,15 @@ export default {
                 class="form-control"
                 placeholder="請輸入說明內容">
               </textarea>
+            </div>
+            <div class="mb-3">
+              <label for="content" class="form-label">評價</label>
+              <select v-model="selectedItem.rate" class="form-select" aria-label="Default select">
+  <option value="" disabled selected>給個星吧</option>
+  <option value="1">✭</option>
+  <option value="2">✭✭</option>
+  <option value="3">✭✭✭</option>
+</select>
             </div>
             <div class="mb-3">
               <div class="form-check">

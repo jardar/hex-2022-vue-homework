@@ -25,6 +25,7 @@
             <tr>
               <th width="120">分類</th>
               <th>產品名稱</th>
+              <th>評價</th>
               <th width="72">產品圖</th>
               <th width="120">原價</th>
               <th width="120">售價</th>
@@ -36,6 +37,9 @@
             <tr v-for="item in items" :key="item.id">
               <td>{{item.category}}</td>
               <td>{{item.title}}</td>
+              <td>
+                {{item.rate?item.rate==3?'✭✭✭':item.rate==2?'✭✭':item.rate=1?'✭':'':''}}
+              </td>
               <td>
                 <img
                   :src="item.imageUrl"
